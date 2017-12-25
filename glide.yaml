@@ -1,0 +1,7 @@
+package: github.com/subchen/mailsender
+import:
+- package: github.com/subchen/go-cli
+  version: 1.x
+- package: github.com/go-gomail/gomail
+  version: 2.x
+- package: github.com/ungerik/go-dry

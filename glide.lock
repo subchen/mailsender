@@ -1,0 +1,12 @@
+hash: 259600eabfb3b9ed1cb15b8988672ac2cd1911317e3c5f90cbb88d3c627a18c5
+updated: 2017-12-25T12:05:42.33194983Z
+imports:
+- name: github.com/go-gomail/gomail
+  version: 81ebce5c23dfd25c6c67194b37d3dd3f338c98b1
+- name: github.com/subchen/go-cli
+  version: 3d42cb3d15e82fb226f62f99fd62cbaa4198efba
+- name: github.com/ungerik/go-dry
+  version: 73dd38d72c6e74cdce93d0ca16de6da9d2e0b6e1
+- name: gopkg.in/alexcesaro/quotedprintable.v3
+  version: 2caba252f4dc53eaf6b553000885530023f54623
+testImports: []
