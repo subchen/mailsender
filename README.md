@@ -22,7 +22,6 @@ OPTIONS:
    --to value            recipient email address: "Your Name <your_name@example.com>". (multiple values)
    --subject value       subject of mail
    --attach value        attachment file. (multiple values)
-   --embed value         embed file for html body, example: <img src="cid:image.jpg">. (multiple values)
    --smtp-server value   smtp server hostname
    --smtp-port value     smtp server port (default: 25)
    --smtp-ssl            enable ssl for smtp server (default: false)
@@ -40,9 +39,12 @@ mailsender \
   --to="bob@gmail.com" \
   --to="jack@gmail.com" \
   --subject="test message" \
+  --attach="some.doc" \
   --smtp-server="smtp.gmail.com" \
   --smtp-port="465" \
   --smtp-user="alex"
   --smtp-pass="password"
   email.html
 ```
+
+> Notes: Images (example: `<img src="cid:abc.jpg">`) will be automatically emebed into email.

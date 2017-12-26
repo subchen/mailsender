@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -26,7 +27,6 @@ var (
 	from       string
 	recipients []string
 	subject    string
-	embedes    []string
 	attaches   []string
 
 	smtpServerHost string
@@ -66,11 +66,6 @@ func main() {
 			Name:  "attach",
 			Usage: "attachment file. (multiple values)",
 			Value: &attaches,
-		},
-		{
-			Name:  "embed",
-			Usage: `embed file for html body, example: <img src="cid:image.jpg">. (multiple values)`,
-			Value: &embedes,
 		},
 		{
 			Name:   "smtp-server",
@@ -127,21 +122,25 @@ func main() {
 
 		bodyfile := c.Args()[0]
 		if !dry.FileExists(bodyfile) {
-			panic("body file not found: " + bodyfile)
+			panic("html body file not found: " + bodyfile)
 		}
 		body, err := ioutil.ReadFile(bodyfile)
 		if err != nil {
 			panic(err)
 		}
+		htmlBody := string(body)
 
 		m := gomail.NewMessage()
 		m.SetHeader("From", from)
 		m.SetHeader("To", recipients...)
 		m.SetHeader("Subject", subject)
 		m.SetDateHeader("X-Date", time.Now())
-		m.SetBody("text/html; charset=utf-8", string(body))
+		m.SetBody("text/html; charset=utf-8", htmlBody)
 
+		reEmbeded := regexp.MustCompile(`cid:[^'">]+`)
+		embedes := reEmbeded.FindAllString(htmlBody, -1)
 		for _, file := range embedes {
+			file := strings.TrimLeft(file, "cid:")
 			if !dry.FileExists(file) {
 				panic("embeded file not found: " + file)
 			}
